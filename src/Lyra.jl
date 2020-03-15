@@ -15,8 +15,6 @@ mutable struct LyraWindow
     function LyraWindow()
         main_html_uri = abs(join(@__PATH__, p"../assets/lyra/index.html"))
 
-        @info main_html_uri
-
         global app
 
         if app == nothing
