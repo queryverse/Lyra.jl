@@ -29,9 +29,7 @@ mutable struct LyraWindow
     end
 end
 
-
-
-function _add!(v::LyraWindow, source::Pair{Symbol,Any})
+function _add!(v::LyraWindow, source::Pair{Symbol,<:Any})
     TableTraits.isiterabletable(source[2]) === false && error("'data' is not a table.")
 
     it = IteratorInterfaceExtensions.getiterator(source[2])
@@ -57,7 +55,7 @@ function _add!(v::LyraWindow, source::Pair{Symbol,Any})
     return nothing
 end
 
-function add!(v::LyraWindow, source::Pair{Symbol,Any}, sources::Pair{Symbol,Any}...)
+function add!(v::LyraWindow, source::Pair{Symbol,<:Any}, sources::Pair{Symbol,<:Any}...)
     _add!(v, source)
 
     for s in sources
@@ -66,7 +64,7 @@ function add!(v::LyraWindow, source::Pair{Symbol,Any}, sources::Pair{Symbol,Any}
 end
 
 function (l::LyraWindow)(source)
-    add!(l, :dataset=>source)
+    _add!(l, :dataset=>source)
     return l
 end
 
@@ -78,7 +76,7 @@ function LyraWindow(source)
     return l
 end
 
-function LyraWindow(source::Pair{Symbol,Any}, sources::Pair{Symbol,Any}...)
+function LyraWindow(source::Pair{Symbol,<:Any}, sources::Pair{Symbol,<:Any}...)
     l = LyraWindow()
 
     _add!(l, source)
