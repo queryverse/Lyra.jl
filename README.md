@@ -7,6 +7,8 @@
 
 This package provides Julia integration for the [Lyra](https://github.com/vega/lyra) Visualization Design Environment.
 
+NOTE THAT THIS PACKAGE CURRENTLY USES A VERY EXPERIMENTAL AND UNSTABLE BUILD OF LYRA AND IS NOT READY FOR REAL USE.
+
 ## Getting Started
 
 Lyra.jl is an interactive environment that enables custom visualization design without writing any code.
