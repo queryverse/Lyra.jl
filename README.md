@@ -37,7 +37,7 @@ data = DataFrame(a=rand(100), b=randn(100))
 l = LyraWindow(data)
 ````
 
-You can also use the pipe to load data into voyager:
+You can also use the pipe to load data into Lyra:
 
 ````julia
 using DataFrames, Lyra
