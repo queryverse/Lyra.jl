@@ -29,10 +29,12 @@ mutable struct LyraWindow
     end
 end
 
-function add!(v::LyraWindow, name::Symbol, data)
-    TableTraits.isiterabletable(data) === false && error("'data' is not a table.")
 
-    it = IteratorInterfaceExtensions.getiterator(data)
+
+function _add!(v::LyraWindow, source::Pair{Symbol,Any})
+    TableTraits.isiterabletable(source[2]) === false && error("'data' is not a table.")
+
+    it = IteratorInterfaceExtensions.getiterator(source[2])
 
     data_dict = Dict{String,Any}()
 
@@ -47,12 +49,45 @@ function add!(v::LyraWindow, name::Symbol, data)
     data_as_string = JSON.json(data)
 
     code = """
-    global.addData('$name', $data_as_string)
+    global.addData('$(source[1])', $data_as_string)
     """
 
     run(v.w, code)
 
     return nothing
+end
+
+function add!(v::LyraWindow, source::Pair{Symbol,Any}, sources::Pair{Symbol,Any}...)
+    _add!(v, source)
+
+    for s in sources
+        _add!(v, s)
+    end
+end
+
+function (l::LyraWindow)(source)
+    add!(l, :dataset=>source)
+    return l
+end
+
+function LyraWindow(source)
+    l = LyraWindow()
+
+    _add!(l, :dataset=>source)
+
+    return l
+end
+
+function LyraWindow(source::Pair{Symbol,Any}, sources::Pair{Symbol,Any}...)
+    l = LyraWindow()
+
+    _add!(l, source)
+
+    for s in sources
+        _add!(l, s)
+    end
+
+    return l
 end
 
 function Base.getindex(v::LyraWindow)
