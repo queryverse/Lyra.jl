@@ -62,14 +62,14 @@ function add!(v::LyraWindow, source::Pair{Symbol,<:Any}, sources::Pair{Symbol,<:
 end
 
 function (l::LyraWindow)(source)
-    _add!(l, :dataset=>source)
+    _add!(l, :dataset => source)
     return l
 end
 
 function LyraWindow(source)
     l = LyraWindow()
 
-    _add!(l, :dataset=>source)
+    _add!(l, :dataset => source)
 
     return l
 end
