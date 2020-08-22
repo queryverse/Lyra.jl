@@ -21,7 +21,7 @@ mutable struct LyraWindow
             app = Application()
         end
 
-        w = Window(app, main_html_uri, options = Dict("title" => "Lyra"))
+        w = Window(app, main_html_uri, options=Dict("title" => "Lyra"))
 
         new(w)
     end
